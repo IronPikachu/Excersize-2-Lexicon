@@ -38,11 +38,18 @@ namespace Excersize_2_Lexicon
                                 Console.WriteLine("Please give ages of everyone...");
                                 int money = 0;
                                 bool printSummary = true;
+                                bool[] easterEgg = new bool[amount];
+                                
                                 for(int i = 0; i < amount; i++)
                                 {
                                     if (int.TryParse(Console.ReadLine(), out int age))
                                     {
-                                        if(age < 5)
+                                        if (age < 0)
+                                        {
+                                            Console.WriteLine("Unborn child:\tfree entry");
+                                            easterEgg[i] = true;
+                                        }
+                                        else if (age < 5)
                                         {
                                             Console.WriteLine("Toddler:\tfree entry");
                                         }
@@ -73,9 +80,20 @@ namespace Excersize_2_Lexicon
                                         break;
                                     }
                                 }
-                                if (printSummary)
+
+                                amount -= easterEgg.Count(x => x);
+                                
+                                if (printSummary && amount > 0)
                                 {
                                     Console.WriteLine($"A party of {amount} for a total price of {money}kr\nPlease enjoy your stay!\n");
+                                }
+                                else if (printSummary && easterEgg.Length > 0)
+                                {
+                                    Console.WriteLine("Nobody's born yet...");
+                                }
+                                else if (printSummary)
+                                {
+                                    Console.WriteLine("Staying at home saves money.");
                                 }
 
                             }
