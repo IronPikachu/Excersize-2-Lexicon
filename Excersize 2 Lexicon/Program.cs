@@ -14,7 +14,7 @@ namespace Excersize_2_Lexicon
             while (loop)
             {
                 //Enter the options, remember to add them to the case!
-                string[] options = { "Exit program", "Fictionary Cinema(TM)", "Repeater" };
+                string[] options = { "Exit program", "Fictionary Cinema(TM)", "Repeater", "The third word" };
                 for (int i = 0; i < options.Length; i++)
                 {
                     Console.WriteLine($"{i}\t- {options[i]}");
@@ -41,10 +41,18 @@ namespace Excersize_2_Lexicon
                                 {
                                     if (int.TryParse(Console.ReadLine(), out int age))
                                     {
-                                        if (age < 20)
+                                        if(age < 5)
+                                        {
+                                            Console.WriteLine("Toddler:\tfree entry");
+                                        }
+                                        else if (age < 20)
                                         {
                                             Console.WriteLine("Youth:\t80kr");
                                             money += 80;
+                                        }
+                                        else if (age > 100)
+                                        {
+                                            Console.WriteLine("Super old pensioneer:\tfree entry");
                                         }
                                         else if(age > 64)
                                         {
@@ -85,6 +93,19 @@ namespace Excersize_2_Lexicon
                             }
                             Console.WriteLine(); //Newline after the repeater
                             break;
+                        //The third word
+                        case 3:
+                            Console.WriteLine("Write three words separated by spaces, and I'll tell you the third word!");
+                            string[] inpoot = Console.ReadLine().Split(' ');
+                            if(inpoot.Length == 3) //Correct input
+                            {
+                                Console.WriteLine($"Yout third word is...\n{inpoot[2]}!!!");
+                            }
+                            else //Incorrect input
+                            {
+                                Console.WriteLine("You didn't write three words, so I'll terminate this section and you'll have to try again...");
+                            }
+                            break;
                         //Bad integer
                         default:
                             Console.WriteLine("Wrong integer!");
@@ -95,6 +116,7 @@ namespace Excersize_2_Lexicon
                 {
                     Console.WriteLine("Please type an integer.");
                 }
+                Console.WriteLine("\n----------");
             }
         }
     }
