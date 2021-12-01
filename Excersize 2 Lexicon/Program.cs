@@ -12,7 +12,7 @@ namespace Excersize_2_Lexicon
 
             while (loop)
             {
-                string[] options = { "Exit program", "Youth or pensioneer" };
+                string[] options = { "Exit program", "Fictionary Cinema(TM)" };
                 for (int i = 0; i < options.Length; i++)
                 {
                     Console.WriteLine($"{i}\t- {options[i]}");
@@ -27,10 +27,10 @@ namespace Excersize_2_Lexicon
                             Console.WriteLine("Good Bye.");
                             break;
                         case 1:
-                            Console.WriteLine("How many are there?");
+                            Console.WriteLine("Welcome to Fictionary Cinema(TM)\nHow big is your party?");
                             if(int.TryParse(Console.ReadLine(), out int amount))
                             {
-                                Console.WriteLine("Please gib ages");
+                                Console.WriteLine("Please give ages of everyone...");
                                 int money = 0;
                                 bool printSummary = true;
                                 for(int i = 0; i < amount; i++)
@@ -62,7 +62,7 @@ namespace Excersize_2_Lexicon
                                 }
                                 if (printSummary)
                                 {
-                                    Console.WriteLine($"A party of {amount} for a total price of {money}kr");
+                                    Console.WriteLine($"A party of {amount} for a total price of {money}kr\nPlease enjoy your stay!\n");
                                 }
 
                             }
