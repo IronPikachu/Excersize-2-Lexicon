@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Excersize_2_Lexicon
 {
@@ -96,7 +97,11 @@ namespace Excersize_2_Lexicon
                         //The third word
                         case 3:
                             Console.WriteLine("Write three words separated by spaces, and I'll tell you the third word!");
-                            string[] inpoot = Console.ReadLine().Split(' ');
+                            //A one-liner. First, read user input. Second, split ' '.
+                            //Third, Lambda function to remove empty strings from array.
+                            //Lastly, make it an array again
+                            string[] inpoot = Console.ReadLine().Split(' ').Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                            
                             if(inpoot.Length == 3) //Correct input
                             {
                                 Console.WriteLine($"Yout third word is...\n{inpoot[2]}!!!");
