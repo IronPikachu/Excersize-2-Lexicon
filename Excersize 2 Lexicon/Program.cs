@@ -6,13 +6,15 @@ namespace Excersize_2_Lexicon
     {
         static void Main(string[] args)
         {
+            //Start message
             Console.WriteLine("Welcome to the Main Menu!\nYou will be navigating by typing in numbers to test different funktions.");
-            
+            //Run the program while true, false upon exit
             bool loop = true;
 
             while (loop)
             {
-                string[] options = { "Exit program", "Fictionary Cinema(TM)" };
+                //Enter the options, remember to add them to the case!
+                string[] options = { "Exit program", "Fictionary Cinema(TM)", "Repeater" };
                 for (int i = 0; i < options.Length; i++)
                 {
                     Console.WriteLine($"{i}\t- {options[i]}");
@@ -21,11 +23,13 @@ namespace Excersize_2_Lexicon
                 if(int.TryParse(input, out int option))
                 {
                     switch (option)
-                    {
+                    {   
+                        //Exit Program
                         case 0:
                             loop = false;
                             Console.WriteLine("Good Bye.");
                             break;
+                        //Fictionary Cinema(TM)
                         case 1:
                             Console.WriteLine("Welcome to Fictionary Cinema(TM)\nHow big is your party?");
                             if(int.TryParse(Console.ReadLine(), out int amount))
@@ -68,15 +72,26 @@ namespace Excersize_2_Lexicon
                             }
                             else
                             {
-                                Console.WriteLine("Invalid integer.");
+                                Console.WriteLine("Invalid integer. Terminating...");
                             }
                             break;
+                        //Repeater
+                        case 2:
+                            Console.WriteLine("Enter anything you like:");
+                            string userInput = Console.ReadLine();
+                            for(int i = 0; i < 10; i++)
+                            {
+                                Console.Write(string.Format("{0}. {1}, ", i + 1, userInput));
+                            }
+                            Console.WriteLine(); //Newline after the repeater
+                            break;
+                        //Bad integer
                         default:
                             Console.WriteLine("Wrong integer!");
                             break;
                     }
                 }
-                else
+                else //Input was not an integer
                 {
                     Console.WriteLine("Please type an integer.");
                 }
