@@ -15,6 +15,7 @@ namespace Excersize_2_Lexicon
 
             //Enter the options, remember to add them to the case!
             string[] options = { "Exit program", "Fictionary Cinema(TM)", "Repeater", "The third word" };
+            //Make things more efficient. In a program of this caliber, it wont matter, but for large projects it'd be better
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < options.Length; i++)
@@ -22,6 +23,7 @@ namespace Excersize_2_Lexicon
                 sb.Append($"{i}\t- {options[i]}\n");
             }
 
+            //Create a string to be shown each time the loop iterates
             string menu = sb.ToString();
 
             while (loop)
@@ -74,46 +76,21 @@ namespace Excersize_2_Lexicon
 
         static void FictionaryCinema()
         {
-            Console.WriteLine("Welcome to Fictionary Cinema(TM)\nHow big is your party?");
+            Console.WriteLine("Welcome to Fictionary Cinema(TM)\nHow many are there?");
             if (int.TryParse(Console.ReadLine(), out int amount))
             {
-                Console.WriteLine("Please give ages of everyone...");
+                
                 int money = 0;
                 bool printSummary = true;
                 bool[] easterEgg = new bool[amount];
+
+                Console.WriteLine(FCAmountResponse(amount));
 
                 for (int i = 0; i < amount; i++)
                 {
                     if (int.TryParse(Console.ReadLine(), out int age))
                     {
-                        if (age < 0)
-                        {
-                            Console.WriteLine("Unborn child:\tfree entry");
-                            easterEgg[i] = true;
-                        }
-                        else if (age < 5)
-                        {
-                            Console.WriteLine("Toddler:\tfree entry");
-                        }
-                        else if (age < 20)
-                        {
-                            Console.WriteLine("Youth:\t80kr");
-                            money += 80;
-                        }
-                        else if (age > 100)
-                        {
-                            Console.WriteLine("Super old pensioneer:\tfree entry");
-                        }
-                        else if (age > 64)
-                        {
-                            Console.WriteLine("Pensioneer:\t90kr");
-                            money += 90;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Regular:\t120kr");
-                            money += 120;
-                        }
+                        FCMoneyHandler(age, ref money, out easterEgg[i]);
                     }
                     else
                     {
@@ -125,24 +102,86 @@ namespace Excersize_2_Lexicon
 
                 amount -= easterEgg.Count(x => x);
 
-                if (printSummary && amount > 0)
-                {
-                    Console.WriteLine($"A party of {amount} for a total price of {money}kr\nPlease enjoy your stay!\n");
-                }
-                else if (printSummary && easterEgg.Length > 0)
-                {
-                    Console.WriteLine("Nobody's born yet...");
-                }
-                else if (printSummary)
-                {
-                    Console.WriteLine("Staying at home saves money.");
-                }
+                Console.WriteLine(FCSummaryResponse(amount, money, printSummary, easterEgg.Length));
 
             }
             else
             {
                 Console.WriteLine("Invalid integer. Terminating...");
             }
+        }
+
+        private static string FCAmountResponse(int a)
+        {
+            if (a == 1)
+            {
+                return "Please tell me your age...";
+            }
+            else if (a == 0)
+            {
+                return "";
+            }
+            else if (a < 0)
+            {
+                return "U 'avin a laugh m8?";
+            }
+            //More than 1 person
+            return "Please give ages of everyone...";
+        }
+
+        private static void FCMoneyHandler(int a, ref int money, out bool e)
+        {
+            if (a < 0)
+            {
+                Console.WriteLine("Unborn child:\tfree entry");
+                e = true;
+                return;
+            }
+            else if (a < 5)
+            {
+                Console.WriteLine("Toddler:\tfree entry");
+            }
+            else if (a < 20)
+            {
+                Console.WriteLine("Youth:\t80kr");
+                money += 80;
+            }
+            else if (a > 100)
+            {
+                Console.WriteLine("Super old pensioneer:\tfree entry");
+            }
+            else if (a > 64)
+            {
+                Console.WriteLine("Pensioneer:\t90kr");
+                money += 90;
+            }
+            else
+            {
+                Console.WriteLine("Regular:\t120kr");
+                money += 120;
+            }
+            e = false;
+        }
+
+        private static string FCSummaryResponse(int amount, int money, bool printSummary = true, int eegg = 0)
+        {
+            if (printSummary && amount > 1)
+            {
+                return $"A party of {amount} for a total price of {money}kr\nPlease enjoy your stay!\n";
+            }
+            else if (printSummary && amount == 1)
+            {
+                return $"For you alone it will cost {money}kr\nPlease enjoy your stay sweetie!\n";
+            }
+            else if (printSummary && eegg > 0)
+            {
+                return "Nobody's born yet...";
+            }
+            else if (printSummary)
+            {
+                return "Staying at home saves money.";
+            }
+            return "Aliquid erravit, me paenitet ...";
         }
 
         static void Repeater()
